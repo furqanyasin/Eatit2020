@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "731108279436",
+    "firebase_url": "https://eatit2020-cf18b.firebaseio.com",
+    "project_id": "eatit2020-cf18b",
+    "storage_bucket": "eatit2020-cf18b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731108279436:android:a03edc8b7a95077d0c27a9",
+        "android_client_info": {
+          "package_name": "com.beingknow.eatit2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731108279436-l9do59s89j4icob2rq271qjpolniq7to.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beingknow.eatit2020",
+            "certificate_hash": "d659147f2685d028cbe28e474fa2a7fcc8abc006"
+          }
+        },
+        {
+          "client_id": "731108279436-32mpl4to2gljn01sc9egku6n6cn611dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuQg5MlmbqiprMKHQpQgA84vgWVMvsRCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731108279436-32mpl4to2gljn01sc9egku6n6cn611dc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
