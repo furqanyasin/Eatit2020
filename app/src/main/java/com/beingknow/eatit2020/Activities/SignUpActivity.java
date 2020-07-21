@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         mDialog.setMessage("Please waiting...");
         mDialog.show();
 
-        table_users.addValueEventListener(new ValueEventListener() {
+        table_users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //check if user not exit in database
