@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.icu.util.ValueIterator;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.beingknow.eatit2020.Common.Common;
 import com.beingknow.eatit2020.Models.Users;
 import com.beingknow.eatit2020.R;
 import com.beingknow.eatit2020.databinding.ActivitySignInBinding;
@@ -65,6 +67,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     Users users = dataSnapshot.child(activitySignInBinding.etPhoneNumber.getText().toString()).getValue(Users.class);
                     if (users.getPassword().equals(activitySignInBinding.etPassword.getText().toString())) {
                         Toast.makeText(SignInActivity.this, "Sign In Successfully !", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                        Common.currentUser = users;
+                        startActivity(intent);
+                        finish();
+
                     } else {
                         Toast.makeText(SignInActivity.this, "Wrong Password!!", Toast.LENGTH_SHORT).show();
                     }

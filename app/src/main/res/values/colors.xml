@@ -9,4 +9,7 @@
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
+
+    <color name="colorOverlayBackground">#7f333639</color>
+    <color name="colorOverlayActionBar">#0e0d0e</color>
 </resources>

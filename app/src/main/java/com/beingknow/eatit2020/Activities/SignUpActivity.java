@@ -49,7 +49,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_users = database.getReference("users");
 
-
         final ProgressDialog mDialog = new ProgressDialog(SignUpActivity.this);
         mDialog.setMessage("Please waiting...");
         mDialog.show();
@@ -71,7 +70,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     finish();
 
                 }
-
             }
 
             @Override
