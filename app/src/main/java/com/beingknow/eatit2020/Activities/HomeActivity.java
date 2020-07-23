@@ -1,5 +1,6 @@
 package com.beingknow.eatit2020.Activities;
 
+import android.content.Intent;
 import android.icu.util.ULocale;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -54,9 +55,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView textFullName;
     RecyclerView recyclerMenu;
     RecyclerView.LayoutManager layoutManager;
-    private MenuAdapter adapter;
+    FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
+    FirebaseRecyclerOptions<Category> firebaseRecyclerOptions;
 
-    private ArrayList<Category> categories = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         //init firebase
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
+        firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Category>().setQuery(category, Category.class).build();
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -107,14 +109,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private void loadMenu() {
 
-        FirebaseRecyclerOptions<Category> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Category>().setQuery(category, Category.class).build();
-        FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(firebaseRecyclerOptions) {
+        adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(firebaseRecyclerOptions) {
             @NonNull
             @Override
             public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item, parent, false);
                 return new MenuViewHolder(view);
             }
+
             @Override
             protected void onBindViewHolder(@NonNull MenuViewHolder holder, int position, @NonNull Category model) {
                 holder.txtMenuName.setText(model.getName());
@@ -125,7 +127,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(HomeActivity.this, "" + clickItem.getName(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(HomeActivity.this, "" + clickItem.getName(), Toast.LENGTH_SHORT).show();
+                        //Get CategoryId and send to new activity
+                        Intent foodList = new Intent(HomeActivity.this, FoodListActivity.class);
+                        //Because CategoryId is a key, so we just key of this item
+                        foodList.putExtra(Common.Category_ID,adapter.getRef(position).getKey());
+                        startActivity(foodList);
                     }
                 });
             }
