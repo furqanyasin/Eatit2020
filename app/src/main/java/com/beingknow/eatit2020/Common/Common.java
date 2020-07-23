@@ -5,5 +5,6 @@ import com.beingknow.eatit2020.Models.Users;
 
 public class Common {
     public static Users currentUser;
-    public static final String Category_ID = "CategoryId";
+    public static final String CATEGORY_ID = "CategoryId";
+    public static final String FOOD_ID = "FoodId";
 }

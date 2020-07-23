@@ -54,7 +54,7 @@ public class FoodListActivity extends AppCompatActivity {
 
         // get intent here
         if (getIntent() != null){
-            categoryId = getIntent().getStringExtra(Common.Category_ID);
+            categoryId = getIntent().getStringExtra(Common.CATEGORY_ID);
             loadFood();
         }
     }
@@ -78,8 +78,12 @@ public class FoodListActivity extends AppCompatActivity {
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Toast.makeText(FoodListActivity.this, "" + clickItem.getFood(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(HomeActivity.this, "" + clickItem.getName(), Toast.LENGTH_SHORT).show();
                         //Get CategoryId and send to new activity
+                        Intent foodDetails = new Intent(FoodListActivity.this, FoodDetailsActivity.class);
+                        //Because foodId is a key, so we just key of this item
+                        foodDetails.putExtra("FoodId",adapter.getRef(position).getKey());
+                        startActivity(foodDetails);
                     }
                 });
 

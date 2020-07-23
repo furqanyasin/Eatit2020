@@ -131,7 +131,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         //Get CategoryId and send to new activity
                         Intent foodList = new Intent(HomeActivity.this, FoodListActivity.class);
                         //Because CategoryId is a key, so we just key of this item
-                        foodList.putExtra(Common.Category_ID,adapter.getRef(position).getKey());
+                        foodList.putExtra(Common.CATEGORY_ID,adapter.getRef(position).getKey());
                         startActivity(foodList);
                     }
                 });

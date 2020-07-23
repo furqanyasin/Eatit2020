@@ -15,4 +15,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="name_of_menu">Name of Menu</string>
     <string name="name_of_food">Name of Food</string>
+    <string name="food_name">Food Name</string>
+    <string name="description">Description</string>
+    <string name="details">Details:</string>
 </resources>
