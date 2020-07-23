@@ -39,12 +39,4 @@ public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     }
 
-
-/*    public void setDetails(Context context , String name, String image) {
-        txtMenuName = itemView.findViewById(R.id.menu_name);
-        menuImage = itemView.findViewById(R.id.menu_image);
-
-        txtMenuName.setText(name);
-        Picasso.get().load(image).into(menuImage);
-    }*/
 }

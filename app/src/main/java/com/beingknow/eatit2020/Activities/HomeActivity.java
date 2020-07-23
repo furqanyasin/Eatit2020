@@ -54,22 +54,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     TextView textFullName;
     RecyclerView recyclerMenu;
     RecyclerView.LayoutManager layoutManager;
-    List<Category> categoryList;
+    private MenuAdapter adapter;
+
+    private ArrayList<Category> categories = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        //Load menu
-        recyclerMenu = findViewById(R.id.recyclerview_menu1);
-        recyclerMenu.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerMenu.setLayoutManager(layoutManager);
-        //loadMenu();
-
-        MenuAdapter adapter = new MenuAdapter(getBaseContext(),categoryList);
-        recyclerMenu.setAdapter(adapter);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Restaurants");
@@ -103,19 +95,28 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         textFullName = headerView.findViewById(R.id.text_full_name);
         textFullName.setText(Common.currentUser.getName());
 
+        //Load menu
+        recyclerMenu = findViewById(R.id.recyclerview_menu1);
+        recyclerMenu.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getBaseContext());
+        recyclerMenu.setLayoutManager(layoutManager);
+        loadMenu();
+
 
     }
 
-  /*  private void loadMenu() {
-        database = FirebaseDatabase.getInstance();
-        category = database.getReference("Category");
+    private void loadMenu() {
+
         FirebaseRecyclerOptions<Category> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Category>().setQuery(category, Category.class).build();
         FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(firebaseRecyclerOptions) {
-
+            @NonNull
+            @Override
+            public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item, parent, false);
+                return new MenuViewHolder(view);
+            }
             @Override
             protected void onBindViewHolder(@NonNull MenuViewHolder holder, int position, @NonNull Category model) {
-
-                *//*holder.setDetails(getApplicationContext(),model.getName(),model.getImage());*//*
                 holder.txtMenuName.setText(model.getName());
                 Picasso.get().load(model.getImage())
                         .into(holder.menuImage);
@@ -128,16 +129,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
             }
-
-            @NonNull
-            @Override
-            public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.menu_item, parent, false);
-                return new MenuViewHolder(view);
-            }
         };
         recyclerMenu.setAdapter(adapter);
-    }*/
+        adapter.startListening();
+    }
 
     @Override
     public void onBackPressed() {
