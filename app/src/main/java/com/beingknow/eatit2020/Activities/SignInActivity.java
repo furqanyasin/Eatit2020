@@ -65,6 +65,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     //Get User Information
                     mDialog.dismiss();
                     Users users = dataSnapshot.child(activitySignInBinding.etPhoneNumber.getText().toString()).getValue(Users.class);
+                    users.setPhone(activitySignInBinding.etPhoneNumber.getText().toString());
                     if (users.getPassword().equals(activitySignInBinding.etPassword.getText().toString())) {
                         Toast.makeText(SignInActivity.this, "Sign In Successfully !", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignInActivity.this, HomeActivity.class);

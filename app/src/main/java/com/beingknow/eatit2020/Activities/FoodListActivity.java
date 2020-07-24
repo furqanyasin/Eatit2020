@@ -71,7 +71,7 @@ public class FoodListActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull FoodViewHolder holder, int position, @NonNull Food model) {
-                holder.txtFoodName.setText(model.getFood());
+                holder.txtFoodName.setText(model.getName());
                 Picasso.get().load(model.getImage())
                         .into(holder.foodImage);
                 final Food clickItem = model;
