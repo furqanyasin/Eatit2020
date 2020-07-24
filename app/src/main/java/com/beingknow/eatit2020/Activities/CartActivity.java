@@ -101,6 +101,7 @@ public class CartActivity extends AppCompatActivity {
 
                 new Database(getBaseContext()).cleanCart();
                 Toast.makeText(CartActivity.this, "Thank You! Order Placed", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
