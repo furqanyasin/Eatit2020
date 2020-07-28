@@ -1,7 +1,5 @@
 package com.beingknow.eatit2020.Models;
 
-import java.util.PriorityQueue;
-
 public class Order {
     private String ProductId;
     private String ProductName;

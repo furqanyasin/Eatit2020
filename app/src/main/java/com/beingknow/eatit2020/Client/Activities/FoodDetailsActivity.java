@@ -1,4 +1,4 @@
-package com.beingknow.eatit2020.Activities;
+package com.beingknow.eatit2020.Client.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.beingknow.eatit2020.Common.Common;
 import com.beingknow.eatit2020.Database.Database;
 import com.beingknow.eatit2020.Models.Food;
 import com.beingknow.eatit2020.Models.Order;

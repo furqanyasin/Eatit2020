@@ -32,37 +32,62 @@
 
         </LinearLayout>
 
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_sign_up"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:text="Sign Up"
+                    android:textColor="@android:color/white"
+                    android:theme="@style/Theme.MyApp"
+                    app:backgroundTint="@color/btnSignUp"
+                    app:cornerRadius="5dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_sign_in"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:text="Sign In"
+                    android:textColor="@android:color/white"
+                    android:theme="@style/Theme.MyApp"
+                    app:backgroundTint="@color/btnSignActive"
+                    app:cornerRadius="5dp" />
+            </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_sign_up"
-                android:layout_width="0dp"
+                android:id="@+id/btn_sign_in_restaurant"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                app:backgroundTint="@color/btnSignUp"
-                android:text="Sign Up"
+                android:layout_margin="10dp"
+                android:text="Restaurant Sign In"
+                android:layout_alignParentBottom="true"
                 android:textColor="@android:color/white"
                 android:theme="@style/Theme.MyApp"
+                app:backgroundTint="@android:color/holo_red_dark"
                 app:cornerRadius="5dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_sign_in"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:text="Sign In"
-                app:backgroundTint="@color/btnSignActive"
-                android:textColor="@android:color/white"
-                android:theme="@style/Theme.MyApp"
-                app:cornerRadius="5dp" />
         </LinearLayout>
+
+
 
     </RelativeLayout>
 

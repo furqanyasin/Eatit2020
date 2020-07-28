@@ -1,4 +1,4 @@
-package com.beingknow.eatit2020.Activities;
+package com.beingknow.eatit2020.Client.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

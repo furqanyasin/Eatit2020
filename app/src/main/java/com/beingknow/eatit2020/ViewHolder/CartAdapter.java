@@ -2,7 +2,6 @@ package com.beingknow.eatit2020.ViewHolder;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.icu.text.UFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

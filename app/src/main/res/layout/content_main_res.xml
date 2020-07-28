@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/my_bg"
-    tools:context=".Client.Activities.OrderStatusActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_main">
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listOrder"
-        android:background="@android:color/transparent"
+        android:id="@+id/recyclerview_menu1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
 

@@ -1,28 +1,23 @@
-package com.beingknow.eatit2020.Activities;
+package com.beingknow.eatit2020.Client.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.beingknow.eatit2020.Common.Common;
-import com.beingknow.eatit2020.Interface.ItemClickListener;
-import com.beingknow.eatit2020.Models.Food;
 import com.beingknow.eatit2020.Models.Request;
 import com.beingknow.eatit2020.R;
-import com.beingknow.eatit2020.ViewHolder.FoodViewHolder;
 import com.beingknow.eatit2020.ViewHolder.OrderViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 public class OrderStatusActivity extends AppCompatActivity {
     public RecyclerView recyclerView;

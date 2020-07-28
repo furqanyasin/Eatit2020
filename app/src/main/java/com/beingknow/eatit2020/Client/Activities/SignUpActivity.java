@@ -1,4 +1,4 @@
-package com.beingknow.eatit2020.Activities;
+package com.beingknow.eatit2020.Client.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.beingknow.eatit2020.Models.Users;
+import com.beingknow.eatit2020.Models.ClientUsers;
 import com.beingknow.eatit2020.R;
-import com.beingknow.eatit2020.databinding.ActivitySignInBinding;
 import com.beingknow.eatit2020.databinding.ActivitySignUpBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,8 +63,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 } else {
                     mDialog.dismiss();
-                    Users users = new Users(name, password);
-                    table_users.child(phoneNumber).setValue(users);
+                    ClientUsers clientUsers = new ClientUsers(name, password);
+                    table_users.child(phoneNumber).setValue(clientUsers);
                     Toast.makeText(SignUpActivity.this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
                     finish();
 

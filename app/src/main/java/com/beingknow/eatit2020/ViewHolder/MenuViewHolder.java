@@ -1,6 +1,5 @@
 package com.beingknow.eatit2020.ViewHolder;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.beingknow.eatit2020.Interface.ItemClickListener;
 import com.beingknow.eatit2020.R;
-import com.squareup.picasso.Picasso;
 
 public class MenuViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
