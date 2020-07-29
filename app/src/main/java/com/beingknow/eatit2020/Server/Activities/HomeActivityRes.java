@@ -227,7 +227,7 @@ public class HomeActivityRes extends AppCompatActivity implements NavigationView
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             saveUri = data.getData();
-            btnSelect.setText("Selected");
+            btnSelect.setText("Selected !");
         }
 
     }
@@ -258,7 +258,9 @@ public class HomeActivityRes extends AppCompatActivity implements NavigationView
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-
+                        Intent foodList = new Intent(HomeActivityRes.this,FoodListActivityRes.class);
+                        foodList.putExtra("CategoryId",adapter.getRef(position).getKey());
+                        startActivity(foodList);
                     }
                 });
 
@@ -283,7 +285,6 @@ public class HomeActivityRes extends AppCompatActivity implements NavigationView
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
-
 
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
