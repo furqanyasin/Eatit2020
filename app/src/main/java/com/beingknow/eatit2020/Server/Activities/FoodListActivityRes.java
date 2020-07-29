@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -265,9 +266,131 @@ public class FoodListActivityRes extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if (item.getTitle().equals(Common.UPDATE)) {
+            showUpdateFood(adapter.getRef(item.getOrder()).getKey(), adapter.getItem(item.getOrder()));
+        } else if (item.getTitle().equals(Common.DELETE)) {
+            deleteFood(adapter.getRef(item.getOrder()).getKey());
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void showUpdateFood(final String key, final Food item) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(FoodListActivityRes.this);
+        alertDialog.setTitle("Edit Food");
+        alertDialog.setMessage("Please fill food information");
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View add_restaurant = inflater.inflate(R.layout.add_new_food, null);
+
+        btnSelect = add_restaurant.findViewById(R.id.btn_select);
+        btnUpload = add_restaurant.findViewById(R.id.btn_upload);
+        foodName = add_restaurant.findViewById(R.id.et_name_food);
+        foodPrice = add_restaurant.findViewById(R.id.et_food_price);
+        foodDiscount = add_restaurant.findViewById(R.id.et_food_price_discount);
+        foodDescription = add_restaurant.findViewById(R.id.et_food_description);
+
+        //set default value for view
+        foodName.setText(item.getName());
+        foodPrice.setText(item.getPrice());
+        foodDiscount.setText(item.getDiscount());
+        foodDescription.setText(item.getDescription());
+
+        //event for button
+        btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choseImage(); //user select image from gallery & save URI of this image
+            }
+        });
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeImage(item);
+            }
+        });
+
+        alertDialog.setView(add_restaurant);
+        alertDialog.setIcon(R.drawable.ic_baseline_shopping_cart_24);
+
+        //set buttons
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                //create new category
+
+                //update information
+                item.setName(foodName.getText().toString());
+                item.setPrice(foodPrice.getText().toString());
+                item.setDiscount(foodDiscount.getText().toString());
+                item.setDescription(foodDescription.getText().toString());
+
+                foodList.child(key).setValue(item);
+                Snackbar.make(rootLayout, "Food" + item.getName() + "was edited", Snackbar.LENGTH_SHORT).show();
+
+            }
+        });
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void changeImage(final Food item) {
+        if (saveUri != null) {
+            final ProgressDialog mDialog = new ProgressDialog(this);
+            mDialog.setMessage("Uploading...");
+            mDialog.show();
+
+            String imageName = UUID.randomUUID().toString();
+            final StorageReference imageFolder = storageReference.child("images/" + imageName);
+            imageFolder.putFile(saveUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            mDialog.dismiss();
+                            Toast.makeText(FoodListActivityRes.this, "Uploaded!", Toast.LENGTH_SHORT).show();
+                            btnUpload.setText("Uploaded");
+                            imageFolder.getDownloadUrl()
+                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            //set value for new category if image upload and we can get download it
+                                            item.setImage(uri.toString());
+                                        }
+                                    });
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            mDialog.dismiss();
+                            Toast.makeText(FoodListActivityRes.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                            mDialog.setMessage("Uploaded" + progress + "%");
+
+                        }
+                    });
+        }
+    }
+
     private void deleteFood(String key) {
         foodList.child(key).removeValue();
         Toast.makeText(this, "Item Deleted!", Toast.LENGTH_SHORT).show();
     }
+
 
 }
