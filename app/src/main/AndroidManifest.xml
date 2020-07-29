@@ -17,8 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Server.HomeActivityRes"></activity>
-        <activity android:name=".Server.SignInActivityRes" />
+        <activity android:name=".Server.Activities.HomeActivityRes"></activity>
+        <activity android:name=".Server.Activities.SignInActivityRes" />
         <activity android:name=".Client.Activities.OrderStatusActivity" />
         <activity android:name=".Client.Activities.CartActivity" />
         <activity android:name=".Client.Activities.FoodDetailsActivity" />

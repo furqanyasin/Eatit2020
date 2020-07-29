@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ti_name_restaurant"
+            style="@style/Theme.MyApp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterTextColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            app:boxStrokeColor="@android:color/black"
+            app:hintTextColor="@android:color/black"
+            android:padding="4dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_name_restaurant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Restaurant Name"
+                android:inputType="text"
+                android:text="Restaurant Pizza Lahore"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_select"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="Select"
+                android:textColor="@android:color/white"
+                android:theme="@style/Theme.MyApp"
+                app:backgroundTint="@color/btnSignUp"
+                app:cornerRadius="5dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_upload"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="Upload"
+                android:textColor="@android:color/white"
+                android:theme="@style/Theme.MyApp"
+                app:backgroundTint="@color/btnSignUp"
+                app:cornerRadius="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

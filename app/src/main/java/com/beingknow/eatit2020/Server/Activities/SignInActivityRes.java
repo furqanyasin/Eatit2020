@@ -1,4 +1,4 @@
-package com.beingknow.eatit2020.Server;
+package com.beingknow.eatit2020.Server.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.beingknow.eatit2020.Common.Common;
-import com.beingknow.eatit2020.Models.ClientUsers;
 import com.beingknow.eatit2020.Models.RestaurantUser;
 import com.beingknow.eatit2020.R;
 import com.beingknow.eatit2020.databinding.ActivitySignInResBinding;

@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.beingknow.eatit2020.Client.Activities.SignInActivity;
 import com.beingknow.eatit2020.Client.Activities.SignUpActivity;
-import com.beingknow.eatit2020.Server.SignInActivityRes;
+import com.beingknow.eatit2020.Server.Activities.SignInActivityRes;
 import com.beingknow.eatit2020.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
