@@ -8,4 +8,6 @@ public class Common {
     public static RestaurantUser restaurantUser;
     public static final String CATEGORY_ID = "CategoryId";
     public static final String FOOD_ID = "FoodId";
+    public static final String UPDATE = "Update";
+    public static final String DELETE = "Delete";
 }

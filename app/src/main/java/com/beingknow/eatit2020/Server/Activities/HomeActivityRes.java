@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.beingknow.eatit2020.Client.Activities.CartActivity;
 import com.beingknow.eatit2020.Common.Common;
+import com.beingknow.eatit2020.Interface.ItemClickListener;
 import com.beingknow.eatit2020.Models.Category;
 import com.beingknow.eatit2020.R;
 import com.beingknow.eatit2020.ViewHolder.MenuViewHolder;
@@ -161,7 +162,7 @@ public class HomeActivityRes extends AppCompatActivity implements NavigationView
                 //create new category
                 if (newCategory != null) {
                     category.push().setValue(newCategory);
-                    Snackbar.make(drawer,"New Category"+newCategory.getName()+"was added",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(drawer, "New Category" + newCategory.getName() + "was added", Snackbar.LENGTH_SHORT).show();
                 }
 
             }
@@ -254,6 +255,13 @@ public class HomeActivityRes extends AppCompatActivity implements NavigationView
                 Picasso.get().load(model.getImage())
                         .into(holder.menuImage);
 
+                holder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+
+                    }
+                });
+
             }
         };
         adapter.notifyDataSetChanged();
@@ -270,13 +278,6 @@ public class HomeActivityRes extends AppCompatActivity implements NavigationView
             super.onBackPressed();
         }
     }
-
- /*   @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -307,5 +308,121 @@ public class HomeActivityRes extends AppCompatActivity implements NavigationView
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //update or delete Restaurant
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if (item.getTitle().equals(Common.UPDATE)) {
+            showUpdateDialog(adapter.getRef(item.getOrder()).getKey(), adapter.getItem(item.getOrder()));
+        }else if (item.getTitle().equals(Common.DELETE)) {
+            deleteCategory(adapter.getRef(item.getOrder()).getKey());
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void deleteCategory(String key) {
+        category.child(key).removeValue();
+        Toast.makeText(this, "Item Deleted!", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showUpdateDialog(final String key, final Category item) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivityRes.this);
+        alertDialog.setTitle("Update Restaurant");
+        alertDialog.setMessage("Please fill your information");
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View add_restaurant = inflater.inflate(R.layout.add_new_restaurant, null);
+
+        restaurantName = add_restaurant.findViewById(R.id.et_name_restaurant);
+        btnSelect = add_restaurant.findViewById(R.id.btn_select);
+        btnUpload = add_restaurant.findViewById(R.id.btn_upload);
+
+        //set default name
+        restaurantName.setText(item.getName());
+
+        //event for button
+        btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choseImage(); //user select image from gallery & save URI of this image
+            }
+        });
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeImage(item);
+            }
+        });
+
+        alertDialog.setView(add_restaurant);
+        alertDialog.setIcon(R.drawable.ic_baseline_shopping_cart_24);
+
+        //set setPositiveButton
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                //update information
+                item.setName(restaurantName.getText().toString());
+                category.child(key).setValue(item);
+
+            }
+        });
+        //set setNegativeButton
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void changeImage(final Category item) {
+        if (saveUri != null) {
+            final ProgressDialog mDialog = new ProgressDialog(this);
+            mDialog.setMessage("Uploading...");
+            mDialog.show();
+
+            String imageName = UUID.randomUUID().toString();
+            final StorageReference imageFolder = storageReference.child("images/" + imageName);
+            imageFolder.putFile(saveUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            mDialog.dismiss();
+                            Toast.makeText(HomeActivityRes.this, "Uploaded!", Toast.LENGTH_SHORT).show();
+                            btnUpload.setText("Uploaded");
+                            imageFolder.getDownloadUrl()
+                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+                                            //set value for new category if image upload and we can get download it
+                                            item.setImage(uri.toString());
+                                        }
+                                    });
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            mDialog.dismiss();
+                            Toast.makeText(HomeActivityRes.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                            mDialog.setMessage("Uploaded" + progress + "%");
+
+                        }
+                    });
+        }
     }
 }
