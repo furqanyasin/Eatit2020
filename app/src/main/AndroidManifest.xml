@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Server.Activities.FoodListActivityRes"></activity>
+        <activity android:name=".Client.Activities.RestaurantListActivity"></activity>
+        <activity android:name=".Server.Activities.FoodListActivityRes" />
         <activity android:name=".Server.Activities.HomeActivityRes" />
         <activity android:name=".Server.Activities.SignInActivityRes" />
         <activity android:name=".Client.Activities.OrderStatusActivity" />

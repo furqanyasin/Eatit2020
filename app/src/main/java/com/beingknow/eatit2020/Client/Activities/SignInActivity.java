@@ -67,7 +67,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     clientUsers.setPhone(activitySignInBinding.etPhoneNumber.getText().toString());
                     if (clientUsers.getPassword().equals(activitySignInBinding.etPassword.getText().toString())) {
                         Toast.makeText(SignInActivity.this, "Sign In Successfully !", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(SignInActivity.this, RestaurantListActivity.class);
                         Common.currentUser = clientUsers;
                         startActivity(intent);
                         finish();

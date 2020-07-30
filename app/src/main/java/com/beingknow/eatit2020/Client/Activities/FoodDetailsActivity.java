@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.beingknow.eatit2020.Common.Common;
 import com.beingknow.eatit2020.Database.Database;
 import com.beingknow.eatit2020.Models.Food;
 import com.beingknow.eatit2020.Models.Order;
@@ -69,7 +70,7 @@ public class FoodDetailsActivity extends AppCompatActivity {
 
         //init firebase
         database = FirebaseDatabase.getInstance();
-        food = database.getReference("Foods");
+        food = database.getReference("Restaurants").child(Common.restaurantSelected).child("detail").child("Foods");
 
 
         // get intent here

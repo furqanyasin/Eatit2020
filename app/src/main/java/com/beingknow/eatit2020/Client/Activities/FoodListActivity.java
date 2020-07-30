@@ -55,11 +55,11 @@ public class FoodListActivity extends AppCompatActivity {
 
         //init firebase
         database = FirebaseDatabase.getInstance();
-        foodList = database.getReference("Foods");
+        foodList = database.getReference("Restaurants").child(Common.restaurantSelected).child("detail").child("Foods");
         firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Food>().setQuery(foodList, Food.class).build();
 
         //Load menu
-        recyclerViewFood = findViewById(R.id.recycler_view_food_list);
+        recyclerViewFood = findViewById(R.id.recyclerview_menu1);
         recyclerViewFood.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getBaseContext());
         recyclerViewFood.setLayoutManager(layoutManager);
@@ -70,7 +70,7 @@ public class FoodListActivity extends AppCompatActivity {
             loadFood();
         }
 
-        //search
+       /* //search
         materialSearchBar = findViewById(R.id.searchBar);
         materialSearchBar.setHint("Search Your Foods");
         loadSuggest();
@@ -119,7 +119,7 @@ public class FoodListActivity extends AppCompatActivity {
             public void onButtonClicked(int buttonCode) {
 
             }
-        });
+        });*/
     }
 
     private void startSearch(CharSequence text) {

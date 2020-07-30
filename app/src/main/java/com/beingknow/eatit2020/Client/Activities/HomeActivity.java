@@ -32,13 +32,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
     FirebaseDatabase database;
     DatabaseReference category;
-    TextView textFullName;
     RecyclerView recyclerMenu;
     RecyclerView.LayoutManager layoutManager;
     FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
@@ -51,12 +50,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Restaurants");
+        toolbar.setTitle("Food Categories");
         setSupportActionBar(toolbar);
 
         //init firebase
         database = FirebaseDatabase.getInstance();
-        category = database.getReference("Category");
+        category = database.getReference("Restaurants").child(Common.restaurantSelected).child("detail").child("Category");
         firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<Category>().setQuery(category, Category.class).build();
 
 
@@ -64,24 +63,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent cartIntent  =new Intent(HomeActivity.this, CartActivity.class);
-               startActivity(cartIntent);
+                Intent cartIntent = new Intent(HomeActivity.this, CartActivity.class);
+                startActivity(cartIntent);
             }
         });
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        //set name for user
-        final View headerView = navigationView.getHeaderView(0);
-        textFullName = headerView.findViewById(R.id.text_full_name);
-        textFullName.setText(Common.currentUser.getName());
 
         //Load menu
         recyclerMenu = findViewById(R.id.recyclerview_menu1);
@@ -117,7 +102,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         //Get CategoryId and send to new activity
                         Intent foodList = new Intent(HomeActivity.this, FoodListActivity.class);
                         //Because CategoryId is a key, so we just key of this item
-                        foodList.putExtra(Common.CATEGORY_ID,adapter.getRef(position).getKey());
+                        foodList.putExtra(Common.CATEGORY_ID, adapter.getRef(position).getKey());
                         startActivity(foodList);
                     }
                 });
@@ -127,51 +112,4 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         adapter.startListening();
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_menu) {
-
-        } else if (id == R.id.nav_cart) {
-            Intent cartIntent = new Intent(HomeActivity.this,CartActivity.class);
-            startActivity(cartIntent);
-
-        } else if (id == R.id.nav_orders) {
-            Intent orderIntent = new Intent(HomeActivity.this,OrderStatusActivity.class);
-            startActivity(orderIntent);
-
-        } else if (id == R.id.nav_sign_out) {
-            Intent signIn = new Intent(HomeActivity.this,SignInActivity.class);
-            signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(signIn);
-
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 }

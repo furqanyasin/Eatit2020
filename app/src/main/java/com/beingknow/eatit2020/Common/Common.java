@@ -10,4 +10,5 @@ public class Common {
     public static final String FOOD_ID = "FoodId";
     public static final String UPDATE = "Update";
     public static final String DELETE = "Delete";
+    public static  String restaurantSelected = "";
 }
